@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+        body {
+            height: 2000px;/*设置大一点，可以滑动，方便观察*/
+        }
+        .box {
+            position: relative;/*相对定位，子元素相对它定位*/
+            top: 300px;/*相对于自己的位置*/
+            left: 100px;
+        }
+       .modal {
+            position: fixed;/*固定定位，相对于浏览器窗口定位*/
+            top: 200px;/*相对于浏览器窗口定位*/
+            left: 200px;
+            background-color: greenyellow;
+       }
+    </style>
+</head>
+<body>
+    <div class="modal">固定定位</div>
+    <div class="box">参照物</div>
+</body>
+</html>

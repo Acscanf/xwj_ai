@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 定义文档的字符编码和视口设置 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .header, .nav, .main, .footer {
+            border-radius: 10px;
+            background-color: green;
+            margin-bottom:10px;
+            color: white;
+            min-height: 50px;
+            text-align: center;
+        }
+        .main {
+            display: flex;
+        }
+        .article {
+            flex: 1;
+            margin-right: 10px;
+            background-color: pink;
+        }
+        .aside {
+            width: 30%;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面头部，通常包含logo、导航等 -->
+    <header class="header">
+        header
+    </header>
+
+    <!-- 导航栏，包含主要导航链接 -->
+    <nav class="nav">nav</nav>
+    
+    <!-- 页面主要内容区域 -->
+    <main class="main">
+        <!-- 文章内容，包含主要文本内容 -->
+        <article class="article">
+            <h1 class="title">什么是html5语义化标签</h1>
+            <ul>
+                <li>标签语义化有助于构架良好的HTML结构，有利于搜索引擎的建立索引、抓取。简单来说，试想在H1标签中匹配到的关键词和在div中匹配到的关键词搜索引擎会吧那个结果放在前面。</li>
+                <li>有利于不同设备的解析（屏幕阅读器，盲人阅读器等）满是div的页面这些设备如何区分那些是主要内容优先阅读？</li>
+                <li>有利于构建清晰的机构，有利于团队的开发、维护。</li>
+            </ul>
+            <!-- 文章中的独立部分，如评论区域 -->
+            <section class="section">
+                comments
+            </section>
+        </article>
+        
+        <!-- 侧边栏，包含与主要内容相关的补充信息 -->
+        <aside class="aside">
+            aside
+        </aside>
+    </main>
+    
+    <!-- 页面底部，通常包含版权信息、联系方式等 -->
+    <footer class="footer">
+        footer
+    </footer>
+</body>
+</html>
