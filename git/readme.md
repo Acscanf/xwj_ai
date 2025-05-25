@@ -14,3 +14,6 @@
     github,gitee 身份
 - git config --global user.name "Acscanf"
 - git config --global user.email "1657170980@qq.com"
+
+
+- new.txt
