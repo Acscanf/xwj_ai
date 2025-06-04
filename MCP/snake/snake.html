@@ -79,6 +79,12 @@
 </head>
 <body>
     <h1>贪吃蛇游戏</h1>
+    <!-- 添加设置初始速度的输入框和按钮 -->
+    <div class="settings">
+        <label for="initial-speed">初始速度 (毫秒):</label>
+        <input type="number" id="initial-speed" value="150" min="50">
+        <button id="apply-settings">应用设置</button>
+    </div>
     <div id="game-container">
         <canvas id="game-board" width="400" height="400"></canvas>
         <div id="game-over">
@@ -101,6 +107,9 @@
             const gameOverDisplay = document.getElementById('game-over');
             const finalScoreDisplay = document.getElementById('final-score');
             const restartBtn = document.getElementById('restart-btn');
+            // 获取设置相关的元素
+            const initialSpeedInput = document.getElementById('initial-speed');
+            const applySettingsBtn = document.getElementById('apply-settings');
             
             const boxSize = 20;
             const rows = canvas.height / boxSize;
@@ -114,6 +123,11 @@
             let gameSpeed = 150;
             let gameLoop;
             let isPaused = false;
+
+            // 应用设置按钮点击事件
+            applySettingsBtn.addEventListener('click', () => {
+                gameSpeed = parseInt(initialSpeedInput.value);
+            });
             
             // 初始化游戏
             function initGame() {
@@ -131,6 +145,7 @@
                 gameOverDisplay.style.display = 'none';
                 
                 if (gameLoop) clearInterval(gameLoop);
+                // 使用设置的初始速度
                 gameLoop = setInterval(updateGame, gameSpeed);
             }
             
