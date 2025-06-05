@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪类选择器</title>
+    <style>
+        /* 行为伪类 */
+        button:hover {
+            background-color: red;
+        }
+
+        button:active {
+            background-color: green;
+        }
+
+        p:hover {
+            background-color: yellow;
+        }
+
+        ::selection {
+            background-color: blue;
+            color: white;
+        }
+        /* 状态伪类 */
+        input:focus { /* 输入框获取焦点 */
+            border: 2px solid blue;
+        }
+
+        input:checked + label{
+            font-weight: bold;
+        }
+
+        li:nth-child(odd) {
+            background-color: lightgray;
+        }
+
+        li:nth-child(even) {
+            background-color: lightblue;
+        }
+
+        /* 条件伪类 */
+        li:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>伪类选择器示例</h1>
+        <button>点击我</button>
+        <p>鼠标悬浮动在这里</p>
+        <input autofocus type="text" placeholder="输入框">
+        <input type="checkbox" id="option1">
+        <label for="option1">选项一</label>
+        <input type="checkbox" checked id="option2">
+        <label for="option2">选项二</label>
+        <ul>
+            <li>列表1</li>
+            <li>列表2</li>
+            <li>列表3</li>
+            <li>列表4</li>
+        </ul>
+    </div>
+</body>
+
+</html>
