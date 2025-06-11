@@ -2,10 +2,6 @@ import { useState , useRef } from 'react'
 import './App.css'
 
 function App() {
-  // 火山引擎 tts 配置文件
-  // const TOKEN = 'SabJnctojg7BsriH6rGTCw4y0d4dGLPn';
-  // const APP_ID = '6388140178';
-  // const CLUSTER_ID = 'volcano_tts';
 
   // 代码的可读性高于一切
   const [prompt, setPrompt] = useState('大家好，我是黄新天')
