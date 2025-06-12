@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青蛙跳棋游戏</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f8ff;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2e8b57;
+            margin-bottom: 10px;
+        }
+        
+        .rules {
+            background-color: #e6f7ea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 500px;
+        }
+        
+        .rules h2 {
+            color: #2e8b57;
+            margin-top: 0;
+            font-size: 18px;
+        }
+        
+        .rules ol {
+            padding-left: 20px;
+        }
+        
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .board {
+            display: flex;
+            background-color: #8fbc8f;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .lily-pad {
+            width: 60px;
+            height: 60px;
+            margin: 0 5px;
+            background-color: #98fb98;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .frog {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.3s;
+        }
+        
+        .frog:hover {
+            transform: scale(1.1);
+        }
+        
+        .left-frog {
+            background-color: #ff6347;
+            color: white;
+        }
+        
+        .right-frog {
+            background-color: #4169e1;
+            color: white;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2e8b57;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #3cb371;
+        }
+        
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2e8b57;
+        }
+        
+        .message {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            height: 24px;
+            color: #4169e1;
+        }
+        
+        .more-games {
+            margin-top: 20px;
+            color: #2e8b57;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>青蛙跳棋</h1>
+    
+    <div class="rules">
+        <h2>游戏规则：</h2>
+        <ol>
+            <li>点击青蛙跳动，不能向后跳；</li>
+            <li>最多只能跳过一只青蛙；</li>
+            <li>两边的青蛙交换位置即胜利；</li>
+            <li>所有青蛙无法前进就是游戏失败，请重试！</li>
+        </ol>
+    </div>
+    
+    <div class="game-container">
+        <div class="board" id="board"></div>
+        <div class="message" id="message"></div>
+    </div>
+    
+    <div class="controls">
+        <button id="reset">重试</button>
+        <div class="timer">时间: <span id="time">0</span>秒</div>
+        <button id="share">转发好友</button>
+    </div>
+    
+    <div class="more-games">更多游戏 >></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const board = document.getElementById('board');
+            const resetBtn = document.getElementById('reset');
+            const shareBtn = document.getElementById('share');
+            const timeDisplay = document.getElementById('time');
+            const messageDisplay = document.getElementById('message');
+            
+            const FROG_COUNT = 3; // 每边青蛙数量
+            const TOTAL_PADS = FROG_COUNT * 2 + 1; // 荷叶总数
+            
+            let frogs = [];
+            let selectedFrog = null;
+            let time = 0;
+            let timer = null;
+            let gameOver = false;
+            
+            // 初始化游戏
+            function initGame() {
+                board.innerHTML = '';
+                frogs = [];
+                selectedFrog = null;
+                clearInterval(timer);
+                time = 0;
+                timeDisplay.textContent = time;
+                messageDisplay.textContent = '';
+                gameOver = false;
+                
+                // 创建荷叶和青蛙
+                for (let i = 0; i < TOTAL_PADS; i++) {
+                    const pad = document.createElement('div');
+                    pad.className = 'lily-pad';
+                    pad.dataset.index = i;
+                    
+                    // 左边青蛙
+                    if (i < FROG_COUNT) {
+                        const frog = document.createElement('div');
+                        frog.className = 'frog left-frog';
+                        frog.textContent = '←';
+                        frog.dataset.index = i;
+                        frog.dataset.direction = 'left';
+                        frog.addEventListener('click', handleFrogClick);
+                        pad.appendChild(frog);
+                        frogs[i] = { direction: 'left', element: frog };
+                    } 
+                    // 右边青蛙
+                    else if (i > FROG_COUNT) {
+                        const frog = document.createElement('div');
+                        frog.className = 'frog right-frog';
+                        frog.textContent = '→';
+                        frog.dataset.index = i;
+                        frog.dataset.direction = 'right';
+                        frog.addEventListener('click', handleFrogClick);
+                        pad.appendChild(frog);
+                        frogs[i] = { direction: 'right', element: frog };
+                    } 
+                    // 中间空位
+                    else {
+                        frogs[i] = null;
+                    }
+                    
+                    board.appendChild(pad);
+                }
+                
+                // 开始计时
+                timer = setInterval(() => {
+                    time++;
+                    timeDisplay.textContent = time;
+                }, 1000);
+            }
+            
+            // 处理青蛙点击
+            function handleFrogClick(e) {
+                if (gameOver) return;
+                
+                const index = parseInt(e.target.dataset.index);
+                const direction = e.target.dataset.direction;
+                
+                // 如果已经选中了一个青蛙
+                if (selectedFrog !== null) {
+                    // 如果点击的是同一个青蛙，取消选择
+                    if (selectedFrog === index) {
+                        frogs[selectedFrog].element.style.boxShadow = '';
+                        selectedFrog = null;
+                        return;
+                    }
+                    
+                    // 尝试移动
+                    tryMove(selectedFrog, index);
+                    frogs[selectedFrog].element.style.boxShadow = '';
+                    selectedFrog = null;
+                } 
+                // 如果没有选中的青蛙，选择当前点击的青蛙
+                else {
+                    selectedFrog = index;
+                    e.target.style.boxShadow = '0 0 10px 5px gold';
+                }
+            }
+            
+            // 尝试移动青蛙
+            function tryMove(fromIndex, toIndex) {
+                const frog = frogs[fromIndex];
+                const direction = frog.direction;
+                
+                // 检查移动是否合法
+                if (direction === 'left') {
+                    // 左青蛙只能向右移动
+                    if (toIndex <= fromIndex) {
+                        messageDisplay.textContent = '左青蛙不能向左跳！';
+                        return false;
+                    }
+                    
+                    // 检查移动距离
+                    const distance = toIndex - fromIndex;
+                    if (distance > 2) {
+                        messageDisplay.textContent = '最多只能跳过一只青蛙！';
+                        return false;
+                    }
+                    
+                    // 检查路径上是否有其他青蛙
+                    for (let i = fromIndex + 1; i <= toIndex; i++) {
+                        if (frogs[i] !== null && i !== toIndex) {
+                            messageDisplay.textContent = '路径上有其他青蛙阻挡！';
+                            return false;
+                        }
+                    }
+                } 
+                else { // right frog
+                    // 右青蛙只能向左移动
+                    if (toIndex >= fromIndex) {
+                        messageDisplay.textContent = '右青蛙不能向右跳！';
+                        return false;
+                    }
+                    
+                    // 检查移动距离
+                    const distance = fromIndex - toIndex;
+                    if (distance > 2) {
+                        messageDisplay.textContent = '最多只能跳过一只青蛙！';
+                        return false;
+                    }
+                    
+                    // 检查路径上是否有其他青蛙
+                    for (let i = fromIndex - 1; i >= toIndex; i--) {
+                        if (frogs[i] !== null && i !== toIndex) {
+                            messageDisplay.textContent = '路径上有其他青蛙阻挡！';
+                            return false;
+                        }
+                    }
+                }
+                
+                // 检查目标位置是否为空
+                if (frogs[toIndex] !== null) {
+                    messageDisplay.textContent = '目标位置已经有青蛙了！';
+                    return false;
+                }
+                
+                // 执行移动
+                moveFrog(fromIndex, toIndex);
+                return true;
+            }
+            
+            // 移动青蛙
+            function moveFrog(fromIndex, toIndex) {
+                const frog = frogs[fromIndex];
+                frogs[fromIndex] = null;
+                frogs[toIndex] = frog;
+                
+                // 更新DOM
+                const fromPad = board.children[fromIndex];
+                const toPad = board.children[toIndex];
+                
+                fromPad.removeChild(frog.element);
+                toPad.appendChild(frog.element);
+                frog.element.dataset.index = toIndex;
+                
+                messageDisplay.textContent = '';
+                
+                // 检查游戏状态
+                checkGameStatus();
+            }
+            
+            // 检查游戏状态
+            function checkGameStatus() {
+                // 检查是否胜利
+                let win = true;
+                for (let i = 0; i < FROG_COUNT; i++) {
+                    if (frogs[i] === null || frogs[i].direction !== 'right') {
+                        win = false;
+                        break;
+                    }
+                }
+                
+                for (let i = FROG_COUNT + 1; i < TOTAL_PADS; i++) {
+                    if (frogs[i] === null || frogs[i].direction !== 'left') {
+                        win = false;
+                        break;
+                    }
+                }
+                
+                if (win) {
+                    gameOver = true;
+                    clearInterval(timer);
+                    messageDisplay.textContent = `恭喜你赢了！用时 ${time} 秒`;
+                    return;
+                }
+                
+                // 检查是否失败（无法移动）
+                let canMove = false;
+                for (let i = 0; i < TOTAL_PADS; i++) {
+                    if (frogs[i] !== null) {
+                        const direction = frogs[i].direction;
+                        if (direction === 'left') {
+                            // 检查能否向右移动1步
+                            if (i + 1 < TOTAL_PADS && frogs[i + 1] === null) {
+                                canMove = true;
+                                break;
+                            }
+                            // 检查能否向右移动2步（跳过一只青蛙）
+                            if (i + 2 < TOTAL_PADS && frogs[i + 1] !== null && frogs[i + 2] === null) {
+                                canMove = true;
+                                break;
+                            }
+                        } else { // right frog
+                            // 检查能否向左移动1步
+                            if (i - 1 >= 0 && frogs[i - 1] === null) {
+                                canMove = true;
+                                break;
+                            }
+                            // 检查能否向左移动2步（跳过一只青蛙）
+                            if (i - 2 >= 0 && frogs[i - 1] !== null && frogs[i - 2] === null) {
+                                canMove = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (!canMove) {
+                    gameOver = true;
+                    clearInterval(timer);
+                    messageDisplay.textContent = '游戏失败！没有可移动的青蛙了。';
+                }
+            }
+            
+            // 重置游戏
+            resetBtn.addEventListener('click', initGame);
+            
+            // 转发好友（模拟）
+            shareBtn.addEventListener('click', function() {
+                alert('已复制游戏链接到剪贴板，可以分享给好友了！');
+            });
+            
+            // 更多游戏（模拟）
+            document.querySelector('.more-games').addEventListener('click', function() {
+                alert('更多游戏功能正在开发中...');
+            });
+            
+            // 初始化游戏
+            initGame();
+        });
+    </script>
+</body>
+</html>
