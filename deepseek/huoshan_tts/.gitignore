@@ -1,24 +1,24 @@
 # Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+logs // 日志目录
+*.log  // 日志文件
+npm-debug.log* // npm 调试日志
+yarn-debug.log* // yarn 调试日志
+yarn-error.log*  // yarn 错误日志
+pnpm-debug.log*  // pnpm 调试日志
+lerna-debug.log*  // lerna 调试日志
 
-node_modules
-dist
-dist-ssr
-*.local
+node_modules  // 依赖目录
+dist  // 编译输出目录
+dist-ssr  // 服务端渲染输出目录
+*.local  // 本地环境配置文件
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.vscode/*  // VS Code 配置文件
+!.vscode/extensions.json  // VS Code 扩展配置文件
+.idea  // JetBrains IDEA 配置目录
+.DS_Store  // MacOS 系统文件
+*.suo  // Visual Studio 解决方案文件
+*.ntvs*  // Visual Studio 解决方案文件
+*.njsproj  // Visual Studio 项目文件
+*.sln  // Visual Studio 解决方案文件
+*.sw?  // 临时文件
