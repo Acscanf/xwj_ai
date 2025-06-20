@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪元素下划线动画效果</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ffd166;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card p {
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+        
+        /* 核心动画效果 */
+        .more {
+            display: inline-block;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-decoration: none;
+            position: relative;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .more::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px; 
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        
+        .more:hover::before {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .variation-1 .more::before {
+            height: 3px;
+            background: linear-gradient(90deg, #f857a6, #ff5858);
+        }
+        
+        .variation-2 .more::before {
+            height: 4px;
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            border-radius: 2px;
+        }
+        
+        .variation-3 .more::before {
+            height: 4px;
+            background: linear-gradient(90deg, #834d9b, #d04ed6);
+            transform-origin: center;
+        }
+        
+        .variation-3 .more:hover::before {
+            transform-origin: center;
+        }
+        
+        .code-container {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 25px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #9cdcfe;
+        }
+        
+        .code {
+            color: #d4d4d4;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .selector {
+            color: #dcdcaa;
+        }
+        
+        .property {
+            color: #9cdcfe;
+        }
+        
+        .value {
+            color: #ce9178;
+        }
+        
+        .explanation {
+            margin-top: 40px;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #4ecdc4;
+        }
+        
+        .explanation h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+        }
+        
+        .explanation ul {
+            padding-left: 25px;
+            margin: 20px 0;
+        }
+        
+        .explanation li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .card {
+                width: 100%;
+                max-width: 500px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>伪元素下划线动画效果</h1>
+        <p class="subtitle">
+            使用CSS伪元素::before创建悬停时的动态下划线效果。本页面展示了渐变、方向和动画速度的变化，
+            通过transform和transition实现平滑的动画体验。
+        </p>
+    </div>
+    
+    <div class="container">
+        <div class="card">
+            <h2><i class="fas fa-code"></i> 基础效果</h2>
+            <p>
+                这是一个基础的下划线动画示例。当鼠标悬停在链接上时，会出现从左到右的渐变色下划线。
+                这种效果非常适合导航菜单、按钮或任何需要视觉反馈的交互元素。
+            </p>
+            <a href="#" class="more">查看效果</a>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS 代码</span>
+                    <span>基础版本</span>
+                </div>
+                <pre class="code"><span class="comment">/* 基础下划线动画 */</span>
+<span class="selector">.more</span>::before {
+    <span class="property">content</span>: <span class="value">""</span>;
+    <span class="property">position</span>: <span class="value">absolute</span>;
+    <span class="property">bottom</span>: <span class="value">0</span>;
+    <span class="property">left</span>: <span class="value">0</span>;
+    <span class="property">width</span>: <span class="value">100%</span>;
+    <span class="property">height</span>: <span class="value">2px</span>; 
+    <span class="property">background</span>: <span class="value">linear-gradient(90deg, #ff6b6b, #4ecdc4)</span>;
+    <span class="property">transform</span>: <span class="value">scaleX(0)</span>;
+    <span class="property">transform-origin</span>: <span class="value">bottom right</span>;
+    <span class="property">transition</span>: <span class="value">transform 0.4s cubic-bezier(0.86, 0, 0.07, 1)</span>;
+}
+
+<span class="selector">.more:hover</span>::before {
+    <span class="property">transform</span>: <span class="value">scaleX(1)</span>;
+    <span class="property">transform-origin</span>: <span class="value">bottom left</span>;
+}</pre>
+            </div>
+        </div>
+        
+        <div class="card variation-1">
+            <h2><i class="fas fa-paint-brush"></i> 样式变体1</h2>
+            <p>
+                这个变体使用了不同的渐变色和更粗的下划线。动画方向保持从左到右，
+                但颜色更鲜艳，适合需要强调的场合。
+            </p>
+            <a href="#" class="more">查看效果</a>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS 代码</span>
+                    <span>变体1</span>
+                </div>
+                <pre class="code"><span class="comment">/* 更粗的粉色渐变下划线 */</span>
+<span class="selector">.variation-1 .more</span>::before {
+    <span class="property">height</span>: <span class="value">3px</span>;
+    <span class="property">background</span>: <span class="value">linear-gradient(90deg, #f857a6, #ff5858)</span>;
+}</pre>
+            </div>
+        </div>
+        
+        <div class="card variation-2">
+            <h2><i class="fas fa-magic"></i> 样式变体2</h2>
+            <p>
+                这个变体使用了圆角边框和不同的渐变色。下划线从中间向两边扩展，
+                创造出独特的视觉效果，适合现代化设计。
+            </p>
+            <a href="#" class="more">查看效果</a>
+            
+            <div class="code-container">
+                <div class="code-header">
+                    <span>CSS 代码</span>
+                    <span>变体2</span>
+                </div>
+                <pre class="code"><span class="comment">/* 圆角绿色渐变下划线 */</span>
+<span class="selector">.variation-2 .more</span>::before {
+    <span class="property">height</span>: <span class="value">4px</span>;
+    <span class="property">background</span>: <span class="value">linear-gradient(90deg, #00c9ff, #92fe9d)</span>;
+    <span class="property">border-radius</span>: <span class="value">2px</span>;
+    <span class="property">transform-origin</span>: <span class="value">center</span>;
+}</pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="explanation">
+        <h3><i class="fas fa-lightbulb"></i> 实现原理与技术细节</h3>
+        <p>这种下划线动画效果利用了CSS伪元素和transform属性，实现了高性能的动画效果：</p>
+        
+        <ul>
+            <li><span class="highlight">::before 伪元素</span> - 在不添加额外HTML元素的情况下创建下划线</li>
+            <li><span class="highlight">transform: scaleX(0) 到 scaleX(1)</span> - 通过水平缩放实现宽度动画，性能优于改变width属性</li>
+            <li><span class="highlight">transform-origin</span> - 控制动画起始点（从右向左或从左向右）</li>
+            <li><span class="highlight">cubic-bezier(0.86, 0, 0.07, 1)</span> - 使用自定义缓动函数实现更自然的动画效果</li>
+            <li><span class="highlight">linear-gradient</span> - 创建渐变色下划线，增加视觉吸引力</li>
+            <li><span class="highlight">position: absolute</span> - 使伪元素相对于父元素定位</li>
+        </ul>
+        
+        <p>这种技术的主要优势在于：不添加额外DOM元素、使用GPU加速的transform属性实现流畅动画、高度可定制的视觉效果。</p>
+    </div>
+    
+    <div class="footer">
+        <p>CSS伪元素动画效果展示 | 使用纯CSS实现 | transform与transition技术</p>
+    </div>
+    
+    <script>
+        // 添加悬停效果说明
+        document.querySelectorAll('.more').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                const card = this.closest('.card');
+                if (card) {
+                    card.style.transform = 'translateY(-10px)';
+                }
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                const card = this.closest('.card');
+                if (card) {
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
