@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            position: relative;
+            left: 0;
+            top: 0;
+            background-color: red;
+            transition: left 1s ease-out;
+        }
+        .box.active{
+            left: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+
+    </div>
+
+    <script>
+        //阻塞
+        // setTimeout(() => {
+        //      document.querySelector('.box').classList.add('active');
+        // }, 0)
+        document.addEventListener('DOMContentLoaded', () => {
+            // html css 下载好了，浏览器中的运行结合 没有完成
+            // event loop 事件循环
+            // 虽然是0，但是setTimeout 是一个宏任务 等待html + css 渲染完成 渲染优先
+            // 页面的渲染 比 setTimeout 更优先
+            setTimeout(() => {
+                document.querySelector('.box').classList.add('active');
+            } , 0)
+        })
+    </script>
+</body>
+</html>
