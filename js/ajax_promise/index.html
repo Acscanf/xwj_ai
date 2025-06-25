@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 请求</title>
+    <script>
+        // 阻塞
+        // window.onload 有点晚
+        // document.addEventListener('DOMContentLoaded', () => {
+        //   console.log(document.getElementById('repos'));
+        // });
+    </script>
+</head>
+<body>
+    <ul id="repos">
+
+    </ul>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // console.log(document.getElementById('repos'));
+            // then 的链式调用有点繁琐
+            // fetch('https://api.github.com/users/shunwuyu/repos')
+            // .then(res => res.json())
+            // .then(data => {
+            //      document.getElementById('repos').innerHTML = data.map(item => `<li>${item.name}</li>`).join('');
+            // })
+            // 写的跟同步代码一样
+            // es8 async await
+            // await 后面写的是 promise 实例
+            // new Promise Promise {} fetch 本质是 返回Promise实例
+            // pending 状态 等待
+            console.log(fetch('https://api.github.com/users/shunwuyu/repos'))
+            // resolve() fulfilled 完成了
+            // reject() rejected 拒绝了
+            const result = await fetch('https://api.github.com/users/shunwuyu/repos')
+            const data = await result.json();
+            // console.log(data)
+            document.getElementById('repos').innerHTML = data.map(item => `<li>${item.name}</li>`).join('');
+        });
+        // api 接口地址
+        // - JSON格式 数据返回
+        // - 资源
+        // 前端 自己做主
+        // - 通过JS fetch 主动拉去资源
+        // - web 2.0 动态页面
+
+    </script>
+</body>
+</html>
