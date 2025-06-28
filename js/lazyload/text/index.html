@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片懒加载</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 500px;
+            height: 500px;
+            margin-bottom: 20px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- 下面一开始加载的都是占位图片，而data-src是真正的图片地址，当图片进入可视区域时，会将data-src的值赋给src，从而加载真正的图片。 -->
+    <img data-src="../img/1.webp" alt="" src="https://static.360buyimg.com/item/main/1.0.12/css/i/loading.gif">
+    <img data-src="../img/2.webp" alt="" src="https://static.360buyimg.com/item/main/1.0.12/css/i/loading.gif">
+    <img data-src="../img/3.webp" alt="" src="https://static.360buyimg.com/item/main/1.0.12/css/i/loading.gif">
+    <img data-src="../img/4.webp" alt="" src="https://static.360buyimg.com/item/main/1.0.12/css/i/loading.gif">
+    <img data-src="../img/5.webp" alt="" src="https://static.360buyimg.com/item/main/1.0.12/css/i/loading.gif">
+    <img data-src="../img/6.webp" alt="" src="https://static.360buyimg.com/item/main/1.0.12/css/i/loading.gif">
+    <img data-src="../img/7.webp" alt="" src="https://static.360buyimg.com/item/main/1.0.12/css/i/loading.gif">
+
+    <script src="./lazyload1.js"></script>
+</body>
+</html>
