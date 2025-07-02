@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  width: 100vh;
+  height: 100vh;
+  /* 用渐变色来代替jpg，png 代替背景图片做背景，比单一色又更艺术
+    http 请求，浏览器的下载线程
+    color stop 包括 color + 百分比
+    deg 表示角度， 45deg 表示45度， 0deg 表示0度， 90deg 表示90度， 180deg 表示180度， 360deg 表示360度
+    它是从下往上渐变的，角度是顺时针的
+  */
+  background: linear-gradient(45deg , rgb(235 , 189 , 161) 0%, rgb(71 , 49 , 32) 100%);
+}
