@@ -74,6 +74,39 @@ const server = http.createServer((req , res) => {
             }
         )
     }
+    if(req.method == 'POST' && req.url == '/login') {
+        // 用户名和密码的校验
+        // 处理post请求
+        res.writeHead(200 , {
+            'Set-Cookie': 'username=admin;',
+            'Content-Type': 'application/json'
+        })
+        res.end(
+            JSON.stringify({
+                success: true,
+                msg: '登录成功',
+            })
+        );
+    }
+    if(req.method == 'GET' && req.url == '/check-login') {
+        if(req.headers.cookie){
+            res.writeHead(200 , {
+                'Content-Type': 'application/json',
+            })
+            res.end(JSON.stringify({
+                loginIn: true,
+                username: 'admin',
+            }))
+        } else {
+            res.writeHead(200 , {
+                'Content-Type': 'application/json',
+            })
+            res.end(JSON.stringify({
+                loginIn: false,
+                username: '',
+            }))
+        }
+    }
 })
 
 // listen 监听端口号
