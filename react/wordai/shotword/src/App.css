@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  width: 100vh;
+  width: 100vw;
   height: 100vh;
   /* 用渐变色来代替jpg，png 代替背景图片做背景，比单一色又更艺术
     http 请求，浏览器的下载线程
