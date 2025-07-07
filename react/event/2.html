@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托</title>
+</head>
+<body>
+    <ul id="myList">
+        <li>item1</li>
+        <li>item2</li>
+        <li>item3</li>
+        <li>item4</li>
+    </ul>
+    <script>
+        // 点击li item？
+        // 一次性给所有的li注册事件？
+        const lis = document.querySelectorAll('#myList li')
+        // 不可以给nodeList 一次性声明
+        // lis.addEventListener('click', function (e) {
+        //     console.log(e.target.innerText)
+        // }, false)
+        // es6 新的循环 (技术循环 let  i = 0 ; i < lis.length ; i++) 对CPU友好
+        // 机械式，可读性差
+        // for(let item of lis) { // 更语义化
+        //     // 向浏览器event loop 这测了一堆事件 监听器？
+        //     // 性能很差
+        //     // 没有必要
+        //     item.addEventListener('click' , function(e) {
+        //         console.log(e.target.innerText)
+        //     }, false)
+        // }
+        // event.target 目标阶段 事件发生在的元素 而不是事件监听的元素
+        document.getElementById('myList').addEventListener('click', function (e) {
+            console.log(e.target.innerText)
+        }, false)
+    </script>
+</body>
+</html>
