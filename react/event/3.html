@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <ul id="myList">
+            <li data-item="123">Item 1</li>
+            <li data-item="456">Item 2</li>
+            <li data-item="789">Item 3</li>
+            <li data-item="012">Item 4</li>
+        </ul>
+
+        <div id="container" data-item="ab1">hello</div>
+        <button id="btn">添加节点</button>
+    </div>
+    <script>
+        // 事件委托
+        // document.getElementById('root').addEventListener('click' , function(event) {
+        //     console.log(event.target); // 唯一的
+        //     if(event.target.dataset.item === 'ab1') {
+        //         console.log("hello is clicked")
+        //     }
+        //     if(event.target.tagName.toLowerCase() === 'li') {
+        //         console.log("list is clicked")
+        //     }
+        // })
+        document.getElementById('myList').addEventListener('click', 
+            function(event) {
+                console.log(event.target.innerText)
+            }
+        )
+        document.getElementById('btn').addEventListener('click' , function(event) {
+            // 动态添加一个节点
+            const newLi = document.createElement('li');
+            newLi.appendChild(
+                document.createTextNode('item-new')
+            )
+            newLi.addEventListener('click' , function(event) {
+                console.log('hello')
+            })
+            document.getElementById('myList').appendChild(newLi)
+        })
+    </script>
+</body>
+</html>
