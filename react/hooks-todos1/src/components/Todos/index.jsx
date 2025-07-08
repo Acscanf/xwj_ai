@@ -11,27 +11,48 @@ const Todos = () => {
     const [todos, setTodos] = useState([
         {
             id: 1,
-            title: '智能识别手势发布命令',
+            text: '智能识别手势发布命令',
             isCompleted: false
         },
         {
             id: 2,
-            title: '算法比赛',
+            text: '算法比赛',
             isCompleted: false
         }
     ]);
     // 新增todo
-    const addTodo = () => {
+    const addTodo = (text) => {
         // setTodos
+        // 数据状态是对象的时候
+        setTodos([
+            ...todos,
+            {
+                id: Date.now(),
+                text,
+                isCompleted: false,
+            }
+        ])
+    }
 
+    const onToggle = (id) => {
+        // todos 数组找到id 为id，isComplete 变成 !isComplete
+        // 响应式？ 返回一个全新的todos
+        setTodos(todos.map(todo => todo.id === id ? {...todo, isCompleted: !todo.isCompleted} : todo))
+    }
+
+    const onDelete = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id))
     }
 
     return (
         <div className='app'>  
-            Todos
             {/* 自定义事件 */}
             <TodoForm onAddTodo = {addTodo}/>
-            <TodoList todos={todos}/>
+            <TodoList   
+                todos={todos}
+                onToggle={onToggle}
+                onDelete={onDelete}
+            />
         </div>
     )
 }
