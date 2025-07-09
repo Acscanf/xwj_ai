@@ -57,3 +57,60 @@
         <input v-model="text" />
     - React  单向绑定
         <input value={text} onChange={(e) => setText(text)} />
+
+- 本地存储
+    - localStorage  本地存储
+        key: value 存储
+        setItem(key, value)  // 存储
+        getItem(key)  // 获取
+        removeItem(key)  // 删除
+        clear()  // 清除所有
+    
+    - BOM Browser Object Model 浏览器对象模型
+    - DOM Document Object Model 文档对象模型
+- 本地存储
+    - localStorage 和 cookie 有什么异同
+    - http 无状态，head cookie 带上
+    - cookie 太大，影响http 性能 4kb
+    - cookie 前端，后端都可以设置
+        过期时间
+        domain 域名
+        path 路径
+        secure 安全协议 https
+        httpOnly 只能在http协议中访问，不能在js中访问
+    - localStorage 只在浏览器端，前端设置，后端无法设置 
+        domain 域名
+        5MB
+    - IndexDB 数据库 GB
+
+## 自定义hooks
+    - 自己定义的
+    - use
+    - 某一项功能
+        简单函数的封装
+        响应式的状态
+        effect
+        todos
+
+- 自定义hooks 
+    - 现代react app 的架构一部分
+    - hooks 目录
+        自定义hooks
+        框架 common 部分
+        业务定制 hooks
+    - use开头
+        state, effect 逻辑封装复用
+    - return
+        todos
+        toggle
+        addTodos
+        deleteTodos
+        函数式编程思想的体现
+    - 组件更好的聚焦于模板渲染
+    - 全面hooks函数式编程
+
+- 两个遗憾
+    - ../../  路径太复杂
+        vite 配置alias 短路径
+    - toggle、delete 跨越组件层级有点多
+        
