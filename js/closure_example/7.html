@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const Counter = (function () {
+            let count = 0; // 自由变量  私有的 
+            function increment() {
+                return ++count;
+            }
+            function reset() {
+                count = 0;
+            }
+            return {
+                getCount: function() {
+                    return count;
+                },
+                increment: function() {
+                    return increment();
+                },
+                reset: function() {
+                    return reset();
+                }
+            }
+        })();
+        const counter1 = Counter(); // 闭包
+        const counter2 = Counter(); // 闭包
+
+        console.log(counter1.getCount());
+        counter1.increment();
+        console.log(counter2.getCount());
+    </script>
+</body>
+
+</html>

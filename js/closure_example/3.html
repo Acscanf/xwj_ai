@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私有属性和方法的封装</title>
+</head>
+<body>
+    <script>
+        function Book(title , author , year) {
+            // 对内 私有
+            // 对外 公开
+            let _title = title;  // _开始的变量 私有变量 有利于代码的阅读性和可维护性
+            let _author = author;
+            let _year = year;
+
+            function getFullTitle() {  // 私有方法
+                return `${_title} by ${_author}`
+            }
+
+            this.getTitle = function() {  // 对外公开的方法
+                return _title;
+            }
+            this.getAuthor = function() {  // 对外公开的方法
+                return _author;
+            }
+            this.getYear = function() {  // 对外公开的方法
+                return _year;
+            }
+            this.getFullInfo = function() {
+                return `${getFullTitle()} , published in ${_year}`
+            }
+            // 类的开发者和类的者  可能是两拨人 
+            this.updateYear = function(newYear) {
+                if(typeof newYear === 'number' && newYear > 0) {
+                    _year = newYear;
+                } else {
+                    console.log("Invalid year");
+                }
+            }
+        }
+
+        let book = new Book("JavaScript高级程序设计" , "Nicholas C.Zakas" , 2021)
+        // console.log(book._title) // undefined
+        console.log(book.getTitle());
+        console.log(book.getFullInfo());
+        // book._year = 2025  // 无法修改私有变量
+        book.updateYear("123")
+        book.updateYear(2025)
+        console.log(book.getYear());
+    </script>
+</body>
+</html>
