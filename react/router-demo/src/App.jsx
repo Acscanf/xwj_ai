@@ -7,6 +7,7 @@ import {
 import './App.css'
 import Home from './pages/Home'  // 引入页面组件
 import About from './pages/About'  // 引入页面组件
+import UserProfile from './pages/UserProfiletttt'
 
 function App() {
   const [count, setCount] = useState(0)
