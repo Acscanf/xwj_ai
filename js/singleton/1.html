@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计模式之单例模式</title>
+</head>
+<body>
+    <script>
+        /**
+        * Storage 本地存储类
+        * 单例模式 getInstance 静态方法
+        * @func getItem(key) 获取本地存储的值
+        * @func setItem(key , value) 设置本地存储的值
+        * @return {Object} 实例对象
+        */
+        // 函数 + prototype 完成类
+        // js的原型式的  灵活、优雅、简单
+        // 面向对象都不用学
+        // JAVA，C++ 不能理解
+        // es6 为了拥抱更多开发者 为了走向企业级大型项目开发
+        // 如何让class只会实例化一次
+        // 全局变量
+        class Storage {
+            static instance = null;
+            constructor() {
+                console.log(this , '~~');
+            }
+            // 静态方法 属于类的方法 不用实例化
+            static getInstance() {
+                // 返回一个实例
+                // 如果实例化过 返回之前的
+                // 如果是第一次 那么就进行实例化
+                // 静态属性
+                // es6 class 语法糖
+                // Storage 对象 instance
+                if (!Storage.instance) {
+                    Storage.instance = new Storage();
+                }
+                return Storage.instance;
+            }
+ 
+            getItem(key) {
+                return localStorage.getItem(key);
+            }
+            setItem(key, value) {
+                return localStorage.setItem(key, value);
+            }
+        }
+        // 单例 性能好
+        // new 干掉 拿到对象的实例
+        // 静态方法 属于类的方法 不用实例化
+        // public private 属于实例化的方法
+        const storage1 = Storage.getInstance();
+        const storage2 = Storage.getInstance();
+        // 引用
+        // es6 class语法糖 构造类 本质还是原型式的
+        console.log(storage1 === storage2 , '~~~~'); // false
+        storage1.setItem('name', 'zs');
+    </script>
+</body>
+</html>
