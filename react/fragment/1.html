@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文档碎片</title>
+</head>
+
+<body>
+    <ul id="list">
+
+    </ul>
+    <script>
+        const items = [
+            {
+                id: 1,
+                title: '标题1',
+                content: '内容1'
+            },
+            {
+                id: 2,
+                title: '标题2',
+                content: '内容'
+            }
+        ]
+
+        const container = document.getElementById('list');
+        const fragment = document.createDocumentFragment();// 创建文档碎片，避免频繁的操作DOM，提高性能。
+        items.forEach(item => {
+            const wrapper = document.createElement('div')
+            const title = document.createElement('h3')
+            const desc = document.createElement('p')
+            title.textContent = item.title;
+            desc.textContent = item.content;
+            wrapper.appendChild(title)
+            wrapper.appendChild(desc)
+            // container.appendChild(wrapper) // 每次循环都会重新渲染DOM，会导致页面的重绘和重排，影响性能。 
+            fragment.appendChild(wrapper) // 把所有的元素都先添加到文档碎片中，然后一次性的添加到DOM中，避免频繁的操作DOM，提高性能。
+        })
+        container.appendChild(fragment)
+    </script>
+</body>
+
+</html>
