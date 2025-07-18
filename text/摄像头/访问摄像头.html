@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摄像头显示框</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 640px;
+            height: 480px;
+            margin: 0 auto 20px;
+            background-color: #000;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        #error {
+            color: #d32f2f;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>摄像头显示框</h1>
+        
+        <div class="video-container">
+            <video id="video" autoplay playsinline></video>
+            <div class="placeholder" id="placeholder">正在初始化摄像头...</div>
+        </div>
+        
+        <div class="controls">
+            <button id="toggleBtn">切换摄像头</button>
+            <button id="stopBtn">停止摄像头</button>
+            <button id="startBtn" style="display: none;">启动摄像头</button>
+        </div>
+        
+        <div id="error"></div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const video = document.getElementById('video');
+        const placeholder = document.getElementById('placeholder');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const startBtn = document.getElementById('startBtn');
+        const errorDisplay = document.getElementById('error');
+        
+        // 摄像头状态
+        let currentStream = null;
+        let usingFrontCamera = true;
+        
+        // 启动摄像头
+        async function startCamera() {
+            try {
+                // 清除之前的错误
+                errorDisplay.textContent = '';
+                placeholder.textContent = '正在初始化摄像头...';
+                placeholder.style.display = 'flex';
+                
+                // 停止当前流（如果有）
+                if (currentStream) {
+                    currentStream.getTracks().forEach(track => track.stop());
+                }
+                
+                // 获取媒体流
+                const constraints = {
+                    video: {
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: usingFrontCamera ? "user" : "environment"
+                    }
+                };
+                
+                currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+                video.srcObject = currentStream;
+                
+                // 视频加载后隐藏占位符
+                video.onloadedmetadata = () => {
+                    placeholder.style.display = 'none';
+                    stopBtn.style.display = 'inline-block';
+                    startBtn.style.display = 'none';
+                };
+                
+            } catch (err) {
+                console.error("摄像头访问错误:", err);
+                errorDisplay.textContent = `无法访问摄像头: ${err.message}`;
+                placeholder.textContent = '摄像头不可用';
+                stopBtn.style.display = 'none';
+                startBtn.style.display = 'inline-block';
+            }
+        }
+        
+        // 停止摄像头
+        function stopCamera() {
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+                video.srcObject = null;
+                placeholder.style.display = 'flex';
+                placeholder.textContent = '摄像头已停止';
+                stopBtn.style.display = 'none';
+                startBtn.style.display = 'inline-block';
+            }
+        }
+        
+        // 切换摄像头
+        function toggleCamera() {
+            usingFrontCamera = !usingFrontCamera;
+            startCamera();
+        }
+        
+        // 添加事件监听器
+        toggleBtn.addEventListener('click', toggleCamera);
+        stopBtn.addEventListener('click', stopCamera);
+        startBtn.addEventListener('click', startCamera);
+        
+        // 页面加载时启动摄像头
+        window.addEventListener('DOMContentLoaded', () => {
+            // 检查浏览器支持
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                errorDisplay.textContent = '您的浏览器不支持摄像头访问功能';
+                placeholder.textContent = '浏览器不支持';
+                toggleBtn.disabled = true;
+                stopBtn.disabled = true;
+            } else {
+                startCamera();
+            }
+        });
+    </script>
+</body>
+</html>

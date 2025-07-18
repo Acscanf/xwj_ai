@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #videoContainer {
+            width: 640px;
+            height: 480px;
+            position: relative;
+            margin: 20px auto;
+        }
+        
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1); /* 水平翻转 */
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="videoContainer">
+        <video id="video" autoplay playsinline></video>
+    </div>
+    
+    <div class="controls">
+        <button id="startBtn">启动摄像头</button>
+        <button id="stopBtn">停止摄像头</button>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        let stream;
+        
+        startBtn.addEventListener('click', async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 },
+                        facingMode: "user" // 前置摄像头
+                    }
+                });
+                video.srcObject = stream;
+            } catch (err) {
+                console.error("摄像头错误:", err);
+            }
+        });
+        
+        stopBtn.addEventListener('click', () => {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+            }
+        });
+    </script>
+</body>
+</html>
