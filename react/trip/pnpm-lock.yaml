@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@react-vant/icons':
+        specifier: ^0.1.0
+        version: 0.1.0(react@19.1.0)
       axios:
         specifier: ^1.11.0
         version: 1.11.0

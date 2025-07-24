@@ -61,7 +61,7 @@ ReadMe.md 很重要  方便面试官
 
 ## 开发前的准备
 - 安装的包
-    pnpm i react-router-dom zustand axios react-vant(UI组件库) lib-flexible(移动端适配)
+    pnpm i react-router-dom zustand axios react-vant(UI组件库) @react-vant/icons lib-flexible(移动端适配) postcss postcss-pxtorem
     开发期间的依赖
     pnpm i -D vite-plugin-mock jwt
 - vite 配置
@@ -106,5 +106,36 @@ ReadMe.md 很重要  方便面试官
     - 频繁的单位转换  200 / 75 换算
     - 自动化？
         pnpm i -D postcss postcss-pxtorem
+        postcss 是css 预编译期，很强大
+        vite自动读取postcss.config.js 将css内容编译  px -> rem
+
+- 页面刷新不跳转，在MainLayout中， useLocation() 监听路由变化
 
 ## git 提交规范
+- 项目初始化
+## 功能模块
+- UI 组件库
+    - pnpm i react-vant 安装
+    - react-vant  第三方组件库  70% 组件已经有了，不用写
+    - 选择一个适合业务的UI组件库 或者 公司内部的组件库
+    - pnpm i @react-vant/icons    图标库
+- 配置路由及懒加载
+    - 懒加载
+    - 路由守卫
+    - Layout 组件
+        - 嵌套路由Outlet 分组路由配置
+        - 网页有几个模板 Layout
+            - tabbar 模板
+            - blank 模板
+    - tabbar
+        - react-vant + @react-vant/icons
+        - value + onChange 响应式
+        - 直接点击链接分享 active 的设置
+
+- 自定义Hooks
+    - useTitle  (一定要设置)
+
+- es6 特性使用
+    tabbar 的高亮
+    - arr.findIndex()  找到数组中满足条件的第一个元素的索引
+    - arr.startWith()  判断数组是否以某个元素开头
