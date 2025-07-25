@@ -38,7 +38,7 @@ function App() {
             <Route path='/account' element={<Account/>}  />
             <Route path='/collection' element={<Collection/>}  />
           </Route>
-
+          {/* 不带tabbar的Layout */}
           <Route element={<BlankLayout />}>
             <Route path='/search' element={<Search />}/>
             <Route path='/login' element={<Login />}/>
