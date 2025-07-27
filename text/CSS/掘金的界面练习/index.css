@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black;
+}
+
+.box {
+    width: 592px;
+    height: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+header {
+    height: 141px;
+    display: flex;
+    color: #000000;
+    flex-direction: column;
+}
+
+.title {
+    width: 570px;
+    display: flex;
+    height: 60px;
+    line-height: 60px;
+}
+
+.title i.iconfont {
+    width: 32px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.title span {
+    font-size: 18px;
+    flex: 1;
+    padding-left: 40px;
+}
+
+.input-1 {
+    height: 80px;
+    line-height: 80px;
+    display: flex;
+}
+
+.input-1 input {
+    width: 467px;
+    height: 58px;
+    margin: 11px 0px 11px 24px;
+    background-color: #f1f2f4;
+    border: none;
+    border-radius: 10px;
+    padding-left: 58px;
+    font-size: 20px;
+}
+
+.input-1 input::placeholder  {
+    color: #bab9be;
+}
+
+#box-1 {
+    position: relative;
+    width: 58px;
+    left: -420px;
+}
+
+.input-1 i.iconfont  {
+    color: #93969f;
+    font-size: 30px;
+}
+
+.input-1 span{
+    width: 100px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    color: #317be4;
+    position: relative;
+    left: -22px;
+    font-size: 24px
+}
+
+section {
+    flex: 1;
+}
+
+section nav {
+    height: 60px;
+    line-height: 60px;
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0px 120px 0px 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+section nav span {
+    height: 56px;
+    width: 50px;
+    text-align: center;
+    color: #8d919c;
+    font-size: 22px;
+}
+
+#span-1 {
+    border-bottom: 3px solid #287bed;
+    color: #287bed;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+main .title-1 {
+    display: flex;
+    height: 65px;
+    line-height: 65px;
+    padding: 0px 32px 0px 32px;
+    justify-content: space-between;
+}
+
+main .title-1 span {
+    font-size: 24px;
+    color: #4e4c59;
+}
+
+#logo-1 {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #4e4c59;
+    border-right: 2px solid #4e4c59;
+    transform: rotate(315deg);
+    top: 32px;
+    left: -187px;
+}
+
+main .title-1 i.iconfont {
+    color: #9ea2a5;
+    font-size: 26px;
+}
+
+main .main-1 {
+    flex: 1;
+    margin-left: 26px;
+}
+
+main .main-1 span {
+    display: inline-block;
+    height: 46px;
+    line-height: 46px;
+    background-color: #f2f3f5;
+    color: #9ca0ab;
+    font-size: 22px;
+    border-radius: 34px;
+    padding: 10px 20px;
+    margin-right: 18px;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+footer {
+    height: 32px;
+    line-height: 32px;
+}
+
+footer div {
+    background-color: black;
+    height: 8px;
+    width: 211px;
+    margin: 0 auto;
+    border-radius: 10px
+}

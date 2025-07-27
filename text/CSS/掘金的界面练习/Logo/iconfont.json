@@ -1,0 +1,44 @@
+{
+  "id": "4984954",
+  "name": "掘金页面",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "18724158",
+      "name": "4G",
+      "font_class": "4G",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "11464294",
+      "name": "电池",
+      "font_class": "dianchi",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "15391366",
+      "name": "信号",
+      "font_class": "xinhao",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "19476325",
+      "name": "搜索",
+      "font_class": "sousuobeifen2",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "24202605",
+      "name": "删 除 ",
+      "font_class": "top",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    }
+  ]
+}
