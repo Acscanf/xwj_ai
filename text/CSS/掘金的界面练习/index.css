@@ -16,6 +16,7 @@ body {
     background-color: #ffffff;
 }
 
+/* header 部分 */
 header {
     height: 141px;
     display: flex;
@@ -85,6 +86,7 @@ header {
     font-size: 24px
 }
 
+/* section 部分 */
 section {
     flex: 1;
 }
@@ -111,7 +113,7 @@ section nav span {
     border-bottom: 3px solid #287bed;
     color: #287bed;
 }
-
+/* main部分 */
 main {
     flex: 1;
     display: flex;
@@ -150,6 +152,7 @@ main .title-1 i.iconfont {
 main .main-1 {
     flex: 1;
     margin-left: 26px;
+    margin-right: 26px;
 }
 
 main .main-1 span {
@@ -160,46 +163,11 @@ main .main-1 span {
     color: #9ca0ab;
     font-size: 22px;
     border-radius: 34px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     margin-right: 18px;
     margin-bottom: 20px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* footer部分 */
 footer {
     height: 32px;
     line-height: 32px;
