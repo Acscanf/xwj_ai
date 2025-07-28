@@ -152,6 +152,12 @@ ReadMe.md 很重要  方便面试官
     - 添加了一个llm模块
     - 迭代chat，支持任意模块
 
+- Search 
+    - 防抖
+    - api
+        GooleSuggest
+    - localStorage
+
 - 自定义Hooks
     - useTitle  (一定要设置)
 
@@ -173,3 +179,11 @@ ReadMe.md 很重要  方便面试官
     - chat messages 遇到message 覆盖问题
     - 闭包陷阱问题
         一次事件里面，两次setMessages()  第二次会覆盖第一次的结果
+
+
+## 通用组件开发
+- Loading 
+    - 居中方案 
+        position： fixed + tlrb0 + margin auto
+    - React.memo 无状态组件，不重新渲染
+    - animation

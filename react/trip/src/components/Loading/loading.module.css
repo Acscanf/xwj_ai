@@ -1,0 +1,31 @@
+.wrapper>div {
+    position: fixed;    /* 固定定位,用position: static清除定位 */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: #d44439;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    /* 关键帧动画 */
+    /* animation-name  动画脚本  animation-duration 动画整个时间 animation-iteration-count 执行次数  animation-timing-function  运动速率*/
+    animation: loading 1.5s ease-in-out infinite;
+}
+.wrapper>div:nth-child(2) {
+    animation-delay: -0.7s;
+    background-color: #f4b400;
+}
+@keyframes loading {
+    0%, 100% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+        /* background-color: pink; */
+    }
+    /* 75% {
+        background-color: green;
+    } */
+}

@@ -11,6 +11,7 @@ import {
 
 import MainLayout from '@/components/MainLayout'
 import BlankLayout from '@/components/BlankLayout'
+import Loading from '@/components/Loading'
 
 const Home = lazy(() => import('@/pages/Home'))
 const Search = lazy(() => import('@/pages/Search'))
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<div>Loading....</div>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           {/* 带有tabbar的Layout */}
           <Route element={<MainLayout />}>
