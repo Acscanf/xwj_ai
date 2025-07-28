@@ -29,6 +29,8 @@ const useSearchStore = create((set) => ({
         "leetcode",
         "字节算法"
     ],
+    isHidden: true,
+    setHidden: () => set((state) => ({ isHidden: !state.isHidden })),
     addSearch: (term) => set((state) => ({ search: [term , ...state.search] })),
     removeSearch: () => set({ search: []}),
 }))

@@ -42,3 +42,15 @@ header {
     height: 50px;
 }
 
+.nav-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    font-size: 18px;
+}
+
+
+

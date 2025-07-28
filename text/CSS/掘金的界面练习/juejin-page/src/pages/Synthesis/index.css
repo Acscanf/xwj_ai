@@ -1,0 +1,17 @@
+ul {
+    padding: 0 20px;
+}
+
+li {
+    list-style: none;
+    height: 28px;
+    line-height: 28px;
+    font-size: 16px;
+    display: inline-block;
+    background-color: #f2f3f5;
+    color: #9ca0ab;
+    border-radius: 34px;
+    padding: 8px 20px;
+    margin-right: 18px;
+    margin-bottom: 20px;
+}
