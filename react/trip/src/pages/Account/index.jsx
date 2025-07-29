@@ -15,7 +15,15 @@ import {
     FriendsO,
     StarO,
     SettingO,
-    UserCircleO
+    UserCircleO,
+    AddO,
+    CartO,
+    ChatO,
+    FireO,
+    LikeO,
+    Search,
+    HomeO,
+    UserO,
 } from '@react-vant/icons'
 import {
     generateAvatar
@@ -23,6 +31,17 @@ import {
 import styles from './account.module.css';
 
 const Account = () => {
+    const gridData = [
+        { icon: <AddO />, text: '添加' },
+        { icon: <CartO />, text: '购物车' },
+        { icon: <ChatO />, text: '聊天' },
+        { icon: <FireO />, text: '热门' },
+        { icon: <LikeO />, text: '喜欢' },
+        { icon: <StarO />, text: '收藏' },
+        { icon: <Search />, text: '搜索' },
+        { icon: <HomeO />, text: '首页' },
+        { icon: <UserO />, text: '我的' }
+    ];
     const [userInfo, setUserInfo] = useState({
         nickname: '奶龙',
         level: '5级',
@@ -33,14 +52,14 @@ const Account = () => {
     const [showActionSheet, setShowActionSheet] = useState(false);
     const handleAction = async (e) => {
         console.log(e)
-        if(e.type === 1) {
+        if (e.type === 1) {
             // AI生成头像
             const text = `
                 昵称: ${userInfo.nickname}
                 签名: ${userInfo.slogan}
             `;
             const newAvatar = await generateAvatar(text)
-        } else if(e.type === 2) {
+        } else if (e.type === 2) {
             // 图片上传
         }
     }
@@ -59,12 +78,12 @@ const Account = () => {
     return (
         <div className={styles.container}>
             <div className={styles.user}>
-                <Image 
+                <Image
                     round
-                    width= "64px"
+                    width="64px"
                     height="64px"
                     src={userInfo.avatar}
-                    style={{cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => setShowActionSheet(true)}
                 />
                 <div className="ml4">
@@ -83,7 +102,7 @@ const Account = () => {
                 </CellGroup>
 
                 <CellGroup inset className="mt2">
-                <Cell title="设置" icon={<SettingO />} isLink />
+                    <Cell title="设置" icon={<SettingO />} isLink />
                 </CellGroup>
             </div>
             <ActionSheet
@@ -95,6 +114,16 @@ const Account = () => {
             >
 
             </ActionSheet>
+            <div className={styles.gridContainer}>
+                {
+                    gridData.map((item, index) => {
+                        <div key={index} className={styles.gridItem}>
+                            <div className={styles.icon}>{item.icon}</div>
+                            <div className={styles.text}>{item.text}</div>
+                        </div>
+                    })
+                }
+            </div>
         </div>
     )
 }
