@@ -117,10 +117,12 @@ const Account = () => {
             <div className={styles.gridContainer}>
                 {
                     gridData.map((item, index) => {
-                        <div key={index} className={styles.gridItem}>
-                            <div className={styles.icon}>{item.icon}</div>
-                            <div className={styles.text}>{item.text}</div>
-                        </div>
+                        return (
+                            <div key={index} className={styles.gridItem}>
+                                <div className={styles.icon}>{item.icon}</div>
+                                <div className={styles.text}>{item.text}</div>
+                            </div>
+                        )
                     })
                 }
             </div>
