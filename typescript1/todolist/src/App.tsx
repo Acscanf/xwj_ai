@@ -43,6 +43,7 @@ function App() {
       {title}
       {user.name} {user.age}
       {/* typescript 很严格 */}
+      {isDone}{list}{tuple}{pStatus}
       <HelloComponent name="小明"/>
     </>
   )
