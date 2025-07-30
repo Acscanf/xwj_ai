@@ -199,12 +199,21 @@ ReadMe.md 很重要  方便面试官
     - images 怎么放到两列中？ MVVM
     数据驱动界面(2列) 奇偶
     - 加载更多 位于盒子底部的元素 通过使用 IntersectionObserver 观察它是否出现在视窗， 性能更好，使用了观察者模式
+    组件卸载时，直接使用disconnect 释放资源，防止内存泄漏
     - key id 下拉刷新
-    
+    - 使用IntersectionObserver 再次图片懒加载 data-src
+
 ## 项目遇到过什么问题
-    - chat messages 遇到message 覆盖问题
-    - 闭包陷阱问题
-        一次事件里面，两次setMessages()  第二次会覆盖第一次的结果
+- chat messages 遇到message 覆盖问题
+- 闭包陷阱问题
+    一次事件里面，两次setMessages()  第二次会覆盖第一次的结果
+
+- 升级瀑布流组件？
+    - 骨架屏
+    - 奇偶images 两列分配可能会出现一长一短的情况，影响美观
+        两个响应式数组，判断那一列高度更少，将新得到的img加入哪个数组
+    - intersectionObserver 用了两次，重复了，dry原则 封装？
+        hooks
 
 
 ## 通用组件开发
