@@ -173,7 +173,12 @@ ReadMe.md 很重要  方便面试官
     tabbar 的高亮
     - arr.findIndex()  找到数组中满足条件的第一个元素的索引
     - arr.startWith()  判断数组是否以某个元素开头
-
+    - str.startsWith()  判断字符串是否以某个字符串开头
+    - promise
+    瀑布流随机数据生成
+    - Array.from({length: pageSize}, (_, index) => ({
+        
+    }))
 
 - 项目迭代
     - 功能由浅入深 
@@ -183,6 +188,19 @@ ReadMe.md 很重要  方便面试官
     - 上下文 LRU 算法
     - coze 工作流接口调用 
 
+- 瀑布流
+    - 现代小红书等主流App的内容浏览用户体验产品
+        两列、图片高度不一致、落差感
+        滚动加载更对、图片懒加载
+    - 接口
+        /pai/images?page=${n}  支持翻页
+        唯一id page + index
+        随机图片、高度随机
+    - images 怎么放到两列中？ MVVM
+    数据驱动界面(2列) 奇偶
+    - 加载更多 位于盒子底部的元素 通过使用 IntersectionObserver 观察它是否出现在视窗， 性能更好，使用了观察者模式
+    - key id 下拉刷新
+    
 ## 项目遇到过什么问题
     - chat messages 遇到message 覆盖问题
     - 闭包陷阱问题

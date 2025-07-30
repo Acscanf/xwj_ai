@@ -1,0 +1,15 @@
+.card {
+    width: 100%;
+    margin: 1%;
+    background-color: #eee;
+    overflow: hidden;
+    overflow: hidden; /* 隐藏溢出内容 */
+    border-radius: 16px;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 保持图片比例并填充整个容器 */
+    display: block; 
+}
