@@ -62,6 +62,7 @@ ReadMe.md 很重要  方便面试官
 ## 开发前的准备
 - 安装的包
     pnpm i react-router-dom zustand axios react-vant(UI组件库) @react-vant/icons lib-flexible(移动端适配) postcss postcss-pxtorem
+    pnpm i mitt  (事件总线)
     开发期间的依赖
     pnpm i -D vite-plugin-mock jwt
 - vite 配置
@@ -203,6 +204,17 @@ ReadMe.md 很重要  方便面试官
     - key id 下拉刷新
     - 使用IntersectionObserver 再次图片懒加载 data-src
 
+
+- toast 组件封装
+    - 需要自定义，UI组件库不满足需求
+    - UI props
+    - JS 显示出来 跨层级通信
+        订阅发布者
+    - mitt eventBus 事件总线
+        - 实例化 mitt()
+        - on(自定义事件的名字，callback)
+        - emit(自定义事件的名字， 参数)
+        组件通过监听一个自定义事件，实现基于时间的组件通信
 ## 项目遇到过什么问题
 - chat messages 遇到message 覆盖问题
 - 闭包陷阱问题
