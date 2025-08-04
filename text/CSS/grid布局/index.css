@@ -1,0 +1,42 @@
+.page {
+    display: grid;
+    /* 定义三行：头部、主内容区、底部 */
+    grid-template-rows: 60px 1fr 40px;
+    /* 定义两列：侧边栏、主内容 */
+    grid-template-columns: 200px 1fr;
+    /* 使用命名区域 */
+    grid-template-areas: 
+      "header header"
+      "sidebar main"
+      "footer footer";
+    height: 100vh; /* 充满视口高度 */
+    gap: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  /* 将元素放置到命名区域 */
+  .header { 
+    grid-area: header; 
+    background: #4CAF50; 
+    color: white;
+    text-align: center;
+    line-height: 60px;
+  }
+  .sidebar { 
+    grid-area: sidebar; 
+    background: #f4f4f4; 
+    padding: 20px;
+  }
+  .main { 
+    grid-area: main; 
+    background: #e0e0e0; 
+    padding: 20px;
+  }
+  .footer { 
+    grid-area: footer; 
+    background: #333; 
+    color: white;
+    text-align: center;
+    line-height: 40px;
+  }
