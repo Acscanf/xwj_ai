@@ -137,6 +137,14 @@ ReadMe.md 很重要  方便面试官
     - SPA
     - 骨架屏  不用让用户等待了
     - 文件上传的perview html5 FileReader
+
+- 语音输入发表文章功能
+    - 字节的 tts
+    - onMouseDown
+    - BOM html5
+    navigator.mediaDevices.getUserMedia({audio: true})
+    用户隐私，要授权  getLocation
+
 ## git 提交规范
 - 项目初始化
 ## 功能模块
@@ -262,3 +270,6 @@ ReadMe.md 很重要  方便面试官
         position： fixed + tlrb0 + margin auto
     - React.memo 无状态组件，不重新渲染
     - animation
+
+- AI 功能
+    智能前端(http 请求) + 工作流 + coze api + AI 全新工作链路
