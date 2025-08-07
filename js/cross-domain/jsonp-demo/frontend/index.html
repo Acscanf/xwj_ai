@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getJSONP({url, params={}, callback}) {
+            //DOM
+            return new Promise((resolve, reject) => {
+                //1.创建script标签
+                const script = document.createElement('script');
+                params = {...params, callback}; // 合并参数
+                //2.拼接url
+                // queryString 的对象？callback=show&a=1&b=2
+                let queryString = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
+                script.src = `${url}?${queryString}`; // 拼接url
+                window[callback] = function (data) { // 暴露函数
+                    resolve(data); // 调用resolve
+                    document.body.removeChild(script); // 删除script标签
+                    window[callback] = null; // 删除函数
+                }
+                //3.添加到页面
+                document.body.appendChild(script);
+            })
+        }
+        getJSONP({
+            url: 'http://localhost:3000/say',
+            params: { // 查询参数
+                wd: 'ILoveYou'
+            },
+            callback: 'show'  // 必须的
+        }).then(data => {
+            console.log(data); // 数据
+        })
+    </script>
+</body>
+</html>
