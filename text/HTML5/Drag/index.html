@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>HTML5 拖拽实战</title>
+    <style>
+        .draggable {
+            width: 100px;
+            height: 100px;
+            background-color: #61dafb;
+            border: 2px dashed #333;
+            margin: 10px;
+            text-align: center;
+            line-height: 100px;
+            cursor: move;
+            user-select: none;
+            /* 防止文字被选中 */
+        }
+
+        .dropzone {
+            width: 200px;
+            height: 200px;
+            border: 3px dashed #ccc;
+            margin: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            text-align: center;
+            line-height: 200px;
+            font-weight: bold;
+        }
+
+        .highlight {
+            border-color: #00aaff;
+            background-color: #e6f7ff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🎉 拖拽测试</h1>
+
+    <!-- 拖拽源 -->
+    <div class="draggable" id="dragElem" draggable="true">
+        拖我！
+    </div>
+
+    <!-- 投放区 -->
+    <div class="dropzone" id="dropZone">
+        放这里 👇
+    </div>
+
+    <script>
+        // 获取 DOM 元素
+        const dragElem = document.getElementById('dragElem');
+        const dropZone = document.getElementById('dropZone');
+
+        // 1️⃣ 拖拽开始：设置要传递的数据
+        dragElem.addEventListener('dragstart', (e) => {
+            console.log('🚀 开始拖动！');
+
+            // 📦 使用 DataTransfer 存储数据
+            e.dataTransfer.setData('text/plain', '我是被拖动的数据'); // 格式, 数据
+            e.dataTransfer.setData('text/html', '<strong>HTML内容</strong>');
+
+            // 🎨 可选：设置拖动时的图标（可以是图片）
+            // e.dataTransfer.setDragImage(自定义图片, x偏移, y偏移);
+
+            // 💄 拖动时给源元素加个透明效果
+            dragElem.style.opacity = '0.5';
+        });
+
+        // 2️⃣ 拖动结束：恢复样式
+        dragElem.addEventListener('dragend', () => {
+            console.log('🛑 拖动结束');
+            dragElem.style.opacity = '1'; // 恢复不透明
+        });
+
+        // 3️⃣ 进入投放区
+        dropZone.addEventListener('dragenter', (e) => {
+            e.preventDefault(); // 必须阻止默认
+            console.log('🚪 进入投放区');
+            dropZone.classList.add('highlight'); // 高亮
+        });
+
+        // 4️⃣ 在投放区上移动（关键！）
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault(); // ⚠️ 必须阻止默认行为，否则 drop 不会触发！
+            // e.dataTransfer.dropEffect = 'move'; // 可设置光标样式：'copy', 'move', 'link'
+        });
+
+        // 5️⃣ 离开投放区
+        dropZone.addEventListener('dragleave', () => {
+            console.log('🚪 离开投放区');
+            dropZone.classList.remove('highlight'); // 取消高亮
+        });
+
+        // 6️⃣ 投放！执行操作
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault(); // 阻止默认行为（比如打开链接）
+            console.log('📥 投放成功！');
+
+            // ✨ 移除高亮
+            dropZone.classList.remove('highlight');
+
+            // 📥 获取拖拽传递的数据
+            const data = e.dataTransfer.getData('text/plain');
+            console.log('接收到的数据:', data);
+
+            // 🎉 执行你的业务逻辑，比如：
+            dropZone.innerHTML = `<p style="color: green;">✅ 成功接收：<br>${data}</p>`;
+            dropZone.style.backgroundColor = '#e6ffe6';
+        });
+    </script>
+</body>
+
+</html>
