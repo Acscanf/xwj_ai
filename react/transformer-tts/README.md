@@ -20,3 +20,4 @@
     - 单利模式封装 MyTextToSpeechPipeline
     - getInstance 只实例化一次
     - 懒执行
+    - Promise.all + nlp 流程的理解 (tokenizer 、model、vocoder)
