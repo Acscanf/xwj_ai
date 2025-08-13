@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式</title>
+</head>
+<body>
+    <div id="container">1</div>
+    <button id="button" type="button">点击加1</button>
+    <button id="loginBtn" type="button">登录</button>
+    <script>
+        // js dom api
+        // 不利于业务，性能不好
+        // document.getElementById('button').addEventListener('click', function() {
+        //     var container = document.getElementById('container');
+        //     // 显示类型转换
+        //     container.innerHTML = Number(container.innerHTML) + 1;
+        // })
+        // 响应式开发  数据状态 他发生改变  数据绑定的地方会自动更新
+        // MVVM Model count View #container VM JSX
+
+        // 1. 状态
+        var obj = {
+            value: 1 ,// 数据 响应式？状态呢？
+            isLogin: false,   // 数据状态
+        }
+        let value = 1;
+        let isLogin = false;
+        Object.defineProperty(obj, 'value', {
+            get: function() { // 读取
+                console.log('get')
+                return value;
+            },
+            // 拦截
+            set: function(newValue) {
+                value = newValue;
+            }
+        })
+        // 一次只能定义一个property
+        Object.defineProperty(obj, 'isLogin', {
+            get: function() { // 读取
+                console.log(isLogin)
+                return isLogin;
+            },
+            // 拦截
+            set: function(newValue) {
+                isLogin = newValue;
+                document.getElementById('loginBtn').innerHTML = isLogin ? '退出' : '登录';
+            }
+        })
+        document.getElementById('button').addEventListener('click', function() {
+            obj.value += 1;
+        })
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            obj.isLogin = !obj.isLogin;
+        })
+    </script>
+</body>
+</html>
