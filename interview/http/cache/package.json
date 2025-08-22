@@ -1,0 +1,16 @@
+{
+  "name": "cache",
+  "version": "1.0.0",
+  "description": "- 知识体系\r - 多进程多线程架构是前提\r - 输入网址并解析\r     非结构字符串，搜索关键字\r     有结构的字符串，解析成协议、域名、端口、路径、查询参数、锚点\r     协议://域名：端口/path?query#hash\r     http(s)\r     web 80 nginx proxy 3000\r     443 https",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "devDependencies": {}
+}
